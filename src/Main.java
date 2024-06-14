@@ -36,9 +36,9 @@ public class Main {
 
         for (String route : routes) {
             Runnable search = () -> {
+                long count = route.chars().filter(ch -> ch == 'R').count();
+                long cntFreq = sizeToFreq.containsKey(Math.toIntExact(count)) ? sizeToFreq.get(Math.toIntExact(count)).longValue() : 0;
                 synchronized (sizeToFreq) {
-                    long count = route.chars().filter(ch -> ch == 'R').count();
-                    long cntFreq = sizeToFreq.containsKey(Math.toIntExact(count)) ? sizeToFreq.get(Math.toIntExact(count)).longValue() : 0;
                     sizeToFreq.put(Math.toIntExact(count), (int) (cntFreq + 1));
                     sizeToFreq.notify();
                 }
